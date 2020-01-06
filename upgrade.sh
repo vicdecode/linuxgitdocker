@@ -20,9 +20,10 @@ read amiroot
 if [[ "$amiroot" == "Y" ]]
 then
 echo "Okay great"
-sudo apt-get update > log.txt
-sudo apt-get upgrade >> log.txt
+apt-get update > log.txt
+apt-get upgrade >> log.txt
 else
+echo "Access denied. Stop trying to hack."
 exit
 fi
 
