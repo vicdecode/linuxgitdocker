@@ -2,7 +2,7 @@
 #State the reason behind the new user account, this will be logged for admin purposes.
 reset
 printf "%0.s*"  {1..1000}
-sleep .5s
+sleep .15s
 reset
 echo "BASH SCRIPTS BY Victor E."
 echo "January 07, 2020"
@@ -18,7 +18,7 @@ if [[ "$amiroot" == "Y" ]] || [[ "$amiroot" == "y" ]] || [[ "$amiroot" == "YES" 
 then
 	reset
 	echo "Checking if you are ROOT or an admin......."
-	sleep 2
+	sleep .5s
 	printf "%0.s." {1..10000}
 	echo ""
 	#Check if Root or Sudo
@@ -91,18 +91,31 @@ then
 			chmod 700 /home/${newusername}/.ssh
 			chown $newusername authorized_keys
 			chmod 600 authorized_keys
+			echo ""
+			echo "${newusername}'s folder"
+			ls -a -l /home/${newusername}
+			read -n 1 -s -r -p "Press any key to continue"
+			echo ""
+			echo ""
+			echo "SSH Folder"
+			ls -a -l /home/${newusername}/.ssh
 		else
 			sudo chown $newusername /home/${newusername}/.ssh
 			sudo chmod 700 /home/${newusername}/.ssh
 			sudo chown $newusername authorized_keys
 			sudo chmod 600 authorized_keys
+			echo ""
+			echo "${newusername}'s folder"
+			sudo su -c "ls -a -l /home/${newusername}"
+			read -n 1 -s -r -p "Press any key to continue"
+			echo ""
+			echo ""
+			echo "SSH Folder"
+			sudo su -c "ls -a -l /home/${newusername}/.ssh"
 		fi
 		read -n 1 -s -r -p "Press any key to continue"
-		echo ""
-		ls -l
-		read -n 1 -s -r -p "Press any key to continue"
 		clear
-		printf "%0.s Awesome" {1..1000}
+		printf "%0.s ***Awesome***   " {1..1000}
 		echo ""
 		sleep 1s
 		clear
@@ -115,13 +128,23 @@ then
 			read rsapublickey 
 			if [[ "$UID" == 0 ]] 
 			then
-				cat <<< $rsapublickey >> authorized_keys
+				cat <<< "$rsapublickey" >> authorized_keys
 			else
-				sudo su -c "cat <<< $rsapublickey >> authorized_keys"
+				sudo su -c "cat <<< '$rsapublickey' >> authorized_keys"
 			fi
 			echo $"Thank you for inputting your key, do you have more keys?"
 			read morekeys
-		done			 
+		done
+		echo ""
+		echo "Great! These are your keys recorded"
+		if [[ "$UID" == 0 ]]
+		then 
+			cat /home/${newusername}/.ssh/authorized_keys
+			read -n 1 -s -r -p "Press any key to continue"
+		else
+			sudo su -c "cat /home/${newusername}/.ssh/authorized_keys"
+			read -n 1 -s -r -p "Press any key to continue"
+		fi
 		clear
 		echo "Is this just for testing purposes?"
 		read thisisatest
