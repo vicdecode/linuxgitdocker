@@ -119,9 +119,9 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export TWILIO_ACCOUNT_SID='ACec327afa5c068e36523c54bc6ef59d19'
-export TWILIO_AUTH_TOKEN='7a683590743190d288745961aa8cb1ef'
+export TWILIO_ACCOUNT_SID='<ACCOUNTSID>'
+export TWILIO_AUTH_TOKEN='<AUTHTOKEN>'
 alias tw='twilio'
-alias twm='tw api:core:messages:create --from +16782842385'
-alias twv='twm --to +12817146701'
+alias twm='tw api:core:messages:create --from +1<number>'
+alias twv='twm --to +1<number>'
 twvt() { twv --body "$@"; }
